@@ -20,6 +20,3 @@ def verify_password(username, password):
 # @auth.login_required
 def index():
     return "Hello, {}!".format(auth.current_user())
-
-if __name__ == '__main__':
-    app.run()
