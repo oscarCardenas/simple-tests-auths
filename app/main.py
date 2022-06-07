@@ -17,6 +17,6 @@ def verify_password(username, password):
         return username
 
 @app.route('/auth_basic')
-# @auth.login_required
+@auth.login_required
 def index():
     return "Hello, {}!".format(auth.current_user())
