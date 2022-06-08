@@ -9,15 +9,15 @@ authToken = HTTPTokenAuth(scheme='Bearer')
 app.config['SECRET_KEY'] = 'secret'
 authDigest = HTTPDigestAuth()
 
-users = {
+users_basic = {
     "john": generate_password_hash("hello"),
     "susan": generate_password_hash("bye")
 }
 
 @authBasic.verify_password
 def verify_password(username, password):
-    if username in users and \
-            check_password_hash(users.get(username), password):
+    if username in users_basic and \
+            check_password_hash(users_basic.get(username), password):
         return username
 
 @app.route('/auth_basic')
@@ -43,15 +43,15 @@ def index():
 
 
 
-users = {
+users_digest = {
     "john": "hello",
     "susan": "bye"
 }
 
 @authDigest.get_password
 def get_pw(username):
-    if username in users:
-        return users.get(username)
+    if username in users_digest:
+        return users_digest.get(username)
     return None
 
 @app.route('/auth_digest')
