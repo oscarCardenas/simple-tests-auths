@@ -26,33 +26,33 @@ authDigest = HTTPDigestAuth()
 #     return "Hello, {}!".format(authBasic.current_user())
 
 
-tokens = {
-    "secret-token-1": "john",
-    "secret-token-2": "susan"
-}
-
-@authToken.verify_token
-def verify_token(token):
-    if token in tokens:
-        return tokens[token]
-
-@app.route('/api_token')
-@authToken.login_required
-def index():    
-    return __name__+"Hello, {}!".format(authToken.current_user())
-
-# users_digest = {
-#     "john": "hello",
-#     "susan": "bye"
+# tokens = {
+#     "secret-token-1": "john",
+#     "secret-token-2": "susan"
 # }
 
-# @authDigest.get_password
-# def get_pw(username):
-#     if username in users_digest:
-#         return users_digest.get(username)
-#     return None
+# @authToken.verify_token
+# def verify_token(token):
+#     if token in tokens:
+#         return tokens[token]
 
-# @app.route('/auth_digest')
-# @authDigest.login_required
-# def index():
-#     return "Hello, {}!".format(authDigest.username())
+# @app.route('/api_token')
+# @authToken.login_required
+# def index():    
+#     return __name__+"Hello, {}!".format(authToken.current_user())
+
+users_digest = {
+    "john": "hello",
+    "susan": "bye"
+}
+
+@authDigest.get_password
+def get_pw(username):
+    if username in users_digest:
+        return users_digest.get(username)
+    return None
+
+@app.route('/auth_digest')
+@authDigest.login_required
+def index():
+    return "Hello, {}!".format(authDigest.username())
